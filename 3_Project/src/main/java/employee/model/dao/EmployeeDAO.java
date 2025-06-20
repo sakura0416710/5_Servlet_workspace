@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import employee.model.vo.Employee;
 
@@ -54,4 +56,99 @@ public class EmployeeDAO {
 		return login;
 	
 	}
+	
+	
+	public ArrayList<Employee> selectAll(Connection conn) {
+		//쿼리작성
+		//<사원정보추출:3.DB에서 정보 추출해온거 DAO로 받아오기>
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		
+		String query="select * from v_selectemp";
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				list.add(new Employee(rset.getInt("empno"),
+						 rset.getString("pwd"),
+						 rset.getString("사원이름"),
+						 rset.getString("job"),
+						 rset.getInt("mgrno"),
+						 rset.getString("매니저이름"),
+						 rset.getDate("hiredate"),
+						 rset.getInt("sal"),
+						 rset.getInt("comm"),
+						 rset.getInt("deptno"),
+						 rset.getString("dname"),
+						 rset.getString("is_admin"),
+						 rset.getString("status")));
+					}
+				
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+
+	public int insertEmployee(Connection conn, Employee e) {
+		//쿼리 생각하기
+		PreparedStatement psmt = null;
+		int result = 0;       //insert는 컬럼 순서대로 해야댐(추가하는거니까)
+		String query = "insert into emp values(?,?,? " + e.getMgrNo()+ ", sysdate, ?,?,?,default,?,default)";
+		
+		try {
+			psmt = conn.prepareStatement(query);
+			psmt.setInt(1,e.getEmpNo());
+			psmt.setString(2,e.getName());
+			psmt.setString(3,e.getJob());
+			psmt.setInt(4,e.getSal());
+			psmt.setInt(5,e.getComm());
+			psmt.setInt(6,e.getDeptNo());
+			psmt.setString(7,e.getIsAdmin());
+			
+			result = psmt.executeUpdate();
+	
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}finally {
+			close(psmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

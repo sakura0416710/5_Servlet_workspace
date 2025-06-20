@@ -44,6 +44,7 @@ public class LoginServlet extends HttpServlet {
 		//SQL에서 select * from 테이블명  ~~ 맞는 것임.
 		EmployeeService eService = new EmployeeService();
 		Employee login = eService.login(e); 
+		
 		/*					<view로 이동해주는 역할을 하는 메소드>
 		 				 forward  		vs   		sendRedirect
 		  		request, response유지				request,response가 새로생성됨

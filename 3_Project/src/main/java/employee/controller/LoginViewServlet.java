@@ -31,9 +31,6 @@ public class LoginViewServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/employee/login.jsp"); //화면이동
 		view.forward(request, response); //경로 받아서 이동시키는 메소드
 		
-		
-		
-		
 	}
 
 	/**
