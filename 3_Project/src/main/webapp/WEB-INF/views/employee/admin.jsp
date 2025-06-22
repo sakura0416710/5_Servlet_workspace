@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자계정으로 로그인한 경우</title>
 <style>
 	html, body{width: 99%; height: 98%;}
 	#container{width: 99%; height: 75%; display: flex;}
@@ -20,7 +21,7 @@
 	.menuContent{margin-left: 10px; width: 85%; height: 100%; display:none;}
 	
 	#enrollDiv{margin: auto; padding: 130px;}
-	#enrollDiv td{text-align: right;}
+	#enrollDiv td{text-align: right;} 
 	.enrollInput{height: 30px; width: 200px;}
 	.enrollInput.select{width: 208px;}
 	#enrollButton{border: 1px solid black; width: 300px; padding: 15px; border-radius: 15px; background: white;}
@@ -67,13 +68,13 @@
 				</tr>
 			
 			<!--사원이 없는데 찾는 경우 대비 -->
-				<c:if test="${empty empList }">
+				<c:if test="${empty empList}">
 					<tr>
 						<td colspan="10">조회된 리스트가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${!empty empList }">
-					<c:forEach items="${empList } var="e"> 
+					<c:forEach items="${empList }" var="e"> 
 					<!-- e에 employee객체가 들어가있을것임.따라서 Employee에 잇는기본 
 					getter의 생성자를가져옴컬럼이나 result Set이름이 아니라  -->
 					<tr>
@@ -172,11 +173,11 @@
 			menuContents[1].style.display='none';
 		});
 		adminMenus[1].addEventListener('click',() => {
-			menuContents[0].style.display='block';
-			menuContents[1].style.display='none';
+			menuContents[0].style.display='none';
+			menuContents[1].style.display='block';
 		});
 		//부서 선택 안하고 등록 누르면 필수라는 알럿창을 띄우기 위해서 js로 이동, button과 dept에 접근
-		document.getElementById('enrollButton').onClick =()=>{
+		document.getElementById('enrollButton').onclick =(e)=>{
 			const dept = document.getElementsByName('dept')[0] //elements는 다 찾아서 배열로 반환을 함
 			if(dept.value.indexOf('-')== 0){    //선택을 안 할 경우에 0. 있으면 1 반환함
 				alert('부서는 필수 선택항목입니다.'); //form태그 안의 버튼=전송을 눌렀음에도 알럿창만 뜨고 데이터 안 넘어가게 하기(onSubmit=false, onClick=false)말고
@@ -185,10 +186,10 @@
 			}
 		}
 		//afterEnroll=Y가져오기 <-파라미터에 저장된 것이므로 param. 으로 찾아주기
-		const afterEnroll = '${param.afterEnroll}'; // =Y에 에러 뜸. Y라는 변수를 나타낸 거나 다름없기때문이다. (우리가 원하는 건 'Y')
+		const afterEnroll = "${param.afterEnroll}"; // =Y에 에러 뜸. Y라는 변수를 나타낸 거나 다름없기때문이다. (우리가 원하는 건 'Y')
 		if(afterEnroll == 'Y'){
-			menuContents[0].style.display('block'); //이러면 사원추가등록했을 때 사원전체가 보이게 됨
-			menuContents[1].style.display('none'); 
+			menuContents[0].style.display='block'; //이러면 사원추가등록했을 때 사원전체가 보이게 됨
+			menuContents[1].style.display='none'; 
 		}
 		
 		

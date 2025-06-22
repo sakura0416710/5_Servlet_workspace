@@ -32,7 +32,7 @@ public class EmployeeService {
 		ArrayList<Employee> list = eDAO.selectAll(conn);
 		return list;
 	}
-
+	//사원등록하기
 	public int insertEmployee(Employee e) {
 		Connection conn = getConnection();
 		int result = eDAO.insertEmployee(conn,e);

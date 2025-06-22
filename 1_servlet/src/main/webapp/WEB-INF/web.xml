@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+  <display-name>1_Servlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  <!-- servlet과 servlet-mapping은 한쌍이며 servlet-name으로 묶어줄 수 있다. -->
+  <!-- GET방식 -->
+  <servlet>
+     <servlet-name>testServlet1</servlet-name>
+     <servlet-class>com.kh.servlet.TestServlet1</servlet-class> <!-- 요청을 처리할 실제 servlet클래스(full name:패키지명.클래스명) -->
+  </servlet>
+  
+  <!-- servlet-mapping: 'A'라는 url이 들어오면 B라는 servlet이 처리할거야  -->
+  <servlet-mapping>
+     <servlet-name>testServlet1</servlet-name>
+     <url-pattern>/test1.do</url-pattern> <!-- 클라이언트 요청주소 : http://localhost:포트번호/context root 부분은 기본적으로 들어가있으므로 나머지만 적어주면 됨 -->
+  </servlet-mapping>
+  
+  <!-- post방식-->
+  <servlet>
+     <servlet-name>testServlet2</servlet-name>
+     <servlet-class>com.kh.servlet.TestServlet2</servlet-class> 
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>testServlet2</servlet-name>
+     <url-pattern>/test2.do</url-pattern> 
+  </servlet-mapping>
+  
+  <!-- 서블릿과 html분리 -->
+  <servlet>
+    <servlet-name>test3</servlet-name>
+    <servlet-class>your.package.Test3Servlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>test3</servlet-name>
+    <url-pattern>/test3.do</url-pattern>
+</servlet-mapping>
+  
+  
+  
+</web-app>

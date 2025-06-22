@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Servlet implementation class LoginServlet
  */
+//login.jsp(form action = "${contextPath}/login.user")에서 제출 시 기능처리를 하는 로그인서블릿으로 이동하게 됨.
 @WebServlet("/login.user")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

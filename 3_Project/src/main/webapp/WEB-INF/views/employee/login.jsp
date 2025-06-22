@@ -33,7 +33,7 @@
 	<script>
 	//1.로그인 (아이디, 비밀번호가 빈칸이면 경고창 띄우고 정보 둘다 입력 시 로그인 페이지로 이동하기)
 	// * form태그(정보를 한꺼번에 묶어서 전송하는) submit()이 포인트였다.
-		const doLoginLabel = () => {
+	const doLoginLabel = () => {
 			const id = document.getElementById('id');
 			const pwd = document.getElementById('pwd');
 		
@@ -53,53 +53,22 @@
 		//페이지가 업로드 되면 태그네임에 접근하고 아디와 비번 컬렉션을 담음
 		//addEventListenr : 표준 이벤트 모델
 		//키보드 이벤트 keyUp에 대한 event객체에 접근했을 때 실행되는 함수작성
+	
+		
 		window.onload = () => {
 			const inputIdPw = document.getElementsByTagName('input');
 			for(let i = 0; i< inputIdPw.length; i++){
 				inputIdPw[i].addEventListener('keyup',e => {
-					console.log(e)
+					
 					if(e.key =='Enter'){
 						doLoginLabel(); //id, pw검사해야하니까 위에 함수 실행시켜서 조건 충족시키기 & Enter눌렀을 때 전송시키기
 					}
-				})
+				});
 			}
 			
 		}
 		
-		
-		
-		
-		
-		
-		
 	</script>
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

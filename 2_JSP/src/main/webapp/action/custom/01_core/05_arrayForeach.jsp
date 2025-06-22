@@ -10,20 +10,20 @@
 <body>
 
 <%
-	String[] nameArr={"신형만","봉미선","신짱구","신짱아"};
-	request.setAttribute("family",nameArr);
+   String[] nameArr={"신형만","봉미선","신짱구","신짱아"};
+   request.setAttribute("family",nameArr);
 
-	//향상된 for문 => foreach(액션태그)
-	for(String f : nameArr){
-		System.out.println(f);
-	}
+   //향상된 for문 => foreach(액션태그)
+   for(String f : nameArr){
+      System.out.println(f);
+   }
 %>
-	<!-- foreach로 반복문 돌리기
-		객체 : 변수 -->
-	<c:forEach items="${ family }" var = "f">
-		${f}
-	</c:forEach>
-	
+   <!-- foreach로 반복문 돌리기
+      객체 : 변수 -->
+   <c:forEach items="${ family }" var = "f">
+      ${f}
+   </c:forEach>
+   
 
 
 

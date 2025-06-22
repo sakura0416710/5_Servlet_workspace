@@ -19,6 +19,8 @@
 	<div id="loginbar">
 		<c:if test="${empty loginUser }">
 			<a href="${contextPath }/loginView.user">로그인</a>
+		</c:if>
+		<c:if test="${not empty loginUser }">
 			<b>${loginUser.name }님, 반갑습니다.</b><br/><br/>
 			<a href="${contextPath }/editPage.me">내 정보 수정</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="${contextPath }/logout.me">로그아웃</a>

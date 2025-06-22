@@ -12,15 +12,12 @@
 
 
 <servlet>
-	<servlet-name>myEL</servlet-name>
-	<servlet-class>el.controller.ElServlet</servlet-class>
+   <servlet-name>myEL</servlet-name>
+   <servlet-class>el.controller.ElServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-	<servlet-name>myEL</servlet-name>
-	<url-pattern>/myEL.do</url-pattern>
+   <servlet-name>myEL</servlet-name>
+   <url-pattern>/myEL.do</url-pattern>
 </servlet-mapping>
-
-
-
 </web-app>

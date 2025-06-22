@@ -11,17 +11,17 @@ import java.io.IOException;
 /**
  * Servlet implementation class LoginViewServlet
  */
-@WebServlet("/loginView.user")
+
+//사용자가 로그인 화면 /loginView.user 으로 접근하는 단계
+
+@WebServlet("/loginView.user") 
 public class LoginViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginViewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+    public LoginViewServlet() {}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

@@ -7,21 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="02_2_ifNumEnd.jsp">
-		첫 번째 숫자:<input type="text" name="num1"/><br/>
-		두 번째 숫자:<input type="text" name="num1"/><br/>
-		<button>확인</button>
-	</form>
-	
-	<form action="02_3_ifStrEnd.jsp">
-		첫 번째 글자:<input type="text" name="str1"/><br/>
-		두 번째 글자:<input type="text" name="str2"/><br/>
-		<button>확인</button>
-	</form>
-	
-	
-	
-	
-	
+   <form action="02_2_ifNumEnd.jsp">
+      첫 번째 숫자:<input type="text" name="num1"/><br/>
+      두 번째 숫자:<input type="text" name="num1"/><br/>
+      <button>확인</button>
+   </form>
+   
+   <form action="02_3_ifStrEnd.jsp">
+      첫 번째 글자:<input type="text" name="str1"/><br/>
+      두 번째 글자:<input type="text" name="str2"/><br/>
+      <button>확인</button>
+   </form>
+   
+   
+   
+   
+   
 </body>
 </html>

@@ -9,27 +9,27 @@
 </head>
 <body>
 <!-- for문과 비슷하다 -->
-	<% for (int i = 1; i <= 6; i++){%>
-		<h<%= i %>>반복문</h<%= i %>>
-	<% } %>
-	
-	
-	<c:forEach var="i" begin="1" end="6">
-		<h${i}>반복문</h${i}>
-	
-	</c:forEach>
-	
-	<hr/>
-	
-	<!-- step:건너뜀 -->
-	<c:forEach var="i" begin="1" end="6" step="2">
-		<h${i}>반복문 ${i}</h${i}>
-	</c:forEach>
-	
-	<c:forEach var="i" begin="1" end="6">
-		<h${7-i}>반복문</h${7-i}>
-	</c:forEach>
-	 
+   <% for (int i = 1; i <= 6; i++){%>
+      <h<%= i %>>반복문</h<%= i %>>
+   <% } %>
+   
+   
+   <c:forEach var="i" begin="1" end="6">
+      <h${i}>반복문</h${i}>
+   
+   </c:forEach>
+   
+   <hr/>
+   
+   <!-- step:건너뜀 -->
+   <c:forEach var="i" begin="1" end="6" step="2">
+      <h${i}>반복문 ${i}</h${i}>
+   </c:forEach>
+   
+   <c:forEach var="i" begin="1" end="6">
+      <h${7-i}>반복문</h${7-i}>
+   </c:forEach>
+    
 
 
 

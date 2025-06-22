@@ -102,17 +102,27 @@ public class EmployeeDAO {
 		//쿼리 생각하기
 		PreparedStatement psmt = null;
 		int result = 0;       //insert는 컬럼 순서대로 해야댐(추가하는거니까)
-		String query = "insert into emp values(?,?,? " + e.getMgrNo()+ ", sysdate, ?,?,?,default,?,default)";
+		String query = "INSERT INTO emp VALUES (?, ?, ?, ?, SYSDATE, ?, ?, ?, DEFAULT, ?, DEFAULT)";
+
 		
 		try {
 			psmt = conn.prepareStatement(query);
-			psmt.setInt(1,e.getEmpNo());
-			psmt.setString(2,e.getName());
-			psmt.setString(3,e.getJob());
-			psmt.setInt(4,e.getSal());
-			psmt.setInt(5,e.getComm());
-			psmt.setInt(6,e.getDeptNo());
-			psmt.setString(7,e.getIsAdmin());
+			psmt.setInt(1, e.getEmpNo());
+			psmt.setString(2, e.getName());
+			psmt.setString(3, e.getJob());
+
+			// mgr 번호 null처리
+			if (e.getMgrNo() == null) {
+			    psmt.setNull(4, java.sql.Types.INTEGER);
+			} else {
+			    psmt.setInt(4, e.getMgrNo());
+			}
+
+			psmt.setInt(5, e.getSal());
+			psmt.setInt(6, e.getComm());
+			psmt.setInt(7, e.getDeptNo());
+			psmt.setString(8, e.getIsAdmin());
+
 			
 			result = psmt.executeUpdate();
 	
