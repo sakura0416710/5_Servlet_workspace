@@ -133,6 +133,40 @@ public class EmployeeDAO {
 		}
 		return result;
 	}
+
+
+	public int updateEmployee(Connection conn, Employee e) {
+		//쿼리 : update emp set pwd =?, name=?, job=?,sal=?,comm=?, deptno=? 	where empno=?
+		//불완전 쿼리이므로 prepared Statement, int result반환(업뎃한 행 개수)
+		
+		PreparedStatement psmt = null;
+		int result = 0;
+		String query = "update emp set pwd =?, ename=?, job=?, sal=?,comm=?, deptno=? where empno=?";
+		
+		
+		try {
+			psmt = conn.prepareStatement(query);
+			
+			psmt.setString(1,e.getPwd());
+			psmt.setString(2,e.getName());
+			psmt.setString(3, e.getJob());
+			psmt.setInt(4,e.getSal());
+			psmt.setInt(5, e.getComm());
+			psmt.setInt(6, e.getDeptNo());
+			psmt.setInt(7, e.getEmpNo());
+			
+			result = psmt.executeUpdate();
+			 
+		} catch (SQLException e1) {
+	
+			e1.printStackTrace();
+		} finally {
+			close(psmt);
+		}
+		
+		
+		return result;
+	}
 	
 	
 	

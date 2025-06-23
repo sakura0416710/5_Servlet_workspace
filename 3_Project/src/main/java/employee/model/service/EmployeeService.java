@@ -25,13 +25,14 @@ public class EmployeeService {
 		
 	}
 	
-	//<사원정보추출:2.service -> DAO랑 연결해주기>
+	//사원정보 조회
 	
 	public ArrayList<Employee> selectAll () {
 		Connection conn = getConnection();
 		ArrayList<Employee> list = eDAO.selectAll(conn);
 		return list;
 	}
+	
 	//사원등록하기
 	public int insertEmployee(Employee e) {
 		Connection conn = getConnection();
@@ -43,6 +44,27 @@ public class EmployeeService {
 		}
 		return result;
 	}
+	//사원 정보 수정
+	public int updateEmployee(Employee e) {
+		Connection conn = getConnection();
+		int result = eDAO.updateEmployee(conn, e);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
