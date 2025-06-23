@@ -103,7 +103,8 @@
 					<table>
 						<tr>
 							<td><label for="id">사원번호</label></td>
-							<td><input type="text" name="id" id="id" class="enrollInput" required autofocus></td>
+							<td><input type="text" name="id" id="id" class="enrollInput" required
+								value="${e.getEmpNo}" autofocus></td>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
@@ -168,6 +169,9 @@
 	window.onload =()=>{
 		const adminMenus = document.getElementsByClassName('adminMenu');
 		const menuContents = document.getElementsByClassName('menuContent');
+		
+		let validate = false; //유효성 검사
+		
 		adminMenus[0].addEventListener('click',()=>{
 			menuContents[0].style.display='block';
 			menuContents[1].style.display='none';
@@ -176,6 +180,8 @@
 			menuContents[0].style.display='none';
 			menuContents[1].style.display='block';
 		});
+		
+		
 		//부서 선택 안하고 등록 누르면 필수라는 알럿창을 띄우기 위해서 js로 이동, button과 dept에 접근
 		document.getElementById('enrollButton').onclick =(e)=>{
 			const dept = document.getElementsByName('dept')[0] //elements는 다 찾아서 배열로 반환을 함
@@ -184,6 +190,12 @@
 				e.preventDefault(); //이벤트 객체 안의 데이터 전송을 막는 이벤트 실행하기.
 			
 			}
+			//등록버튼 눌렀을 때 작동시키기 위해 여기다 써줌
+			if(!validate){ //true일때
+				alert('사원번호를 확인하세요');
+				document.getElementbyId('id').focus();
+				e.preventDefault();
+			}
 		}
 		//afterEnroll=Y가져오기 <-파라미터에 저장된 것이므로 param. 으로 찾아주기
 		const afterEnroll = "${param.afterEnroll}"; // =Y에 에러 뜸. Y라는 변수를 나타낸 거나 다름없기때문이다. (우리가 원하는 건 'Y')
@@ -191,6 +203,67 @@
 			menuContents[0].style.display='block'; //이러면 사원추가등록했을 때 사원전체가 보이게 됨
 			menuContents[1].style.display='none'; 
 		}
+		
+		//사원번호 중복인거 알림창 띄우기 > 비교할 사원번호를 가지고 있어야 비교가능.
+		// 1. id -> value에 접근
+		//window객체를 가져오면 function으로 바꿔주기
+		/*const id = document.getElementById('id').addEventListener('focusout',function(){
+			const value = this.value ;
+			});
+		*/
+		//ajax로 객체{(key:value)}, 통신이기 때문에 url은 필수이다.
+		const id = document.getElementById('id').addEventListener('focusout',e => {
+			const value = e.target.value.trim();
+			//<tr><td>colspan="2"에 접근: 화살표함수로 되어있으므로 target써주고
+			const targetTd = e.target.parentElement.parentElement.nextElementSibling.children[0];
+	
+			
+			if(value != ''){
+				$.ajax({
+					//통신 ; 경로 필수구현 
+					url:'${contextPath}/checkEmpNo.me',
+					//데이터 전송
+					data : {value:value},
+					//응답을 받아온 게 성공, 에러로 나눠주고 ()에 받아온 인자 써주기
+					succeess : (data) => {
+						console.log(data);
+						if(data == 0){
+							targetTd.innerText = '사용가능한 사원번호입니다.'
+							targetTd.style.color = 'green';
+							validate = true;
+						} else {
+							targetTd.innerText = '중복된 사원번호입니다.';
+							targetTd.style.color = 'red';
+							validate = false;
+						}
+						targetTd.style.fontSize = '12px';
+					},
+					error: (data) => {
+						console.log(data);
+						
+						
+					}
+					
+				});
+				
+				//값이 없을 때는 안내문구 빈칸
+			} else {
+				targetTd.innerText='';
+			}
+			
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

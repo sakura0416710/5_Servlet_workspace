@@ -167,6 +167,34 @@ public class EmployeeDAO {
 		
 		return result;
 	}
+
+
+	public int checkEmpNo(Connection conn, int empNo) {
+		//불완전 쿼리 : select count(*) from emp where empNo=?
+		//PreparedStatement 
+		PreparedStatement psmt = null;
+		ResultSet rest = null;
+		int result = 0;
+		String query = "select count(*) from emp where empNo=?";
+		
+		try {
+			psmt = conn.prepareStatement(query);
+			psmt.setInt(1,empNo);
+			rest = psmt.executeQuery();
+			
+			if(rest.next()) {       //여긴 컬럼명쓰는건데 1로 받을거니까 1이라고 써도 됨
+				result = rest.getInt("count(*)");
+			}
+		} catch (SQLException e1) {
+			
+			e1.printStackTrace();
+		}finally {
+			close(rest);
+			close(psmt);
+			
+		}
+		return result;
+	}
 	
 	
 	

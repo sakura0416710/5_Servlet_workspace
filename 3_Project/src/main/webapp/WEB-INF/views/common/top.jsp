@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상단</title>
+<script src="${contextPath }/js/jquery-3.7.1.min.js"></script>
 <style>
 	h1>a{colot:black; text-decoration:none;}
 	h1>a:active {color:orangered;}

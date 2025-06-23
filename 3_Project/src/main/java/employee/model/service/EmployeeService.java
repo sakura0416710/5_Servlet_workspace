@@ -55,6 +55,13 @@ public class EmployeeService {
 		}
 		return result;
 	}
+
+	public int checkEmpNo(int empNo) {
+		Connection conn = getConnection();
+		int result = eDAO.checkEmpNo(conn,empNo);
+		
+		return result;
+	}
 	
 	
 	
