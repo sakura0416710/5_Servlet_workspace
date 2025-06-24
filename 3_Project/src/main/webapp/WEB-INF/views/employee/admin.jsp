@@ -13,7 +13,7 @@
 	#container{width: 99%; height: 75%; display: flex;}
  	#adminDiv{height: 100%; width: 15%; background: #111; display: inline-block;}
 	.adminMenu{
-		width: 95%; height: 60px; background: #888; text-align: center; margin: auto; 
+		width: 95%; height: 60px; background: lightpink; text-align: center; margin: auto; 
 		line-height: 60px; font-size: 20px; color: #eee;
 	}
 	.adminMenu:hover{font-weight: bold; cursor: pointer;}
@@ -31,6 +31,13 @@
 	#adminDiv+div>table{width: 100%; text-align: center;}
 	th{border-bottom: 1px solid black;}
 	#adminDiv+div>table td{height: 35px;}
+	
+	#adminDiv+div>table td>div{
+		border : 1px solid black; height:80%; width:45%; display:inline-block;
+		padding-top:3%; cursor:pointer;
+		}
+		.selectState{background:lightpink;}
+		.unselectState{background: none;}
 </style>
 </head>
 <body>
@@ -86,8 +93,15 @@
 					<td>${e.sal}</td>
 					<td>${e.comm}</td>
 					<td>${e.dept }</td>
-					<td>${e.isAdmin}</td>
-					<td>${e.status}</td>
+					<td>
+						<div class="${e.isAdmin=='Y'? 'selectState':'unselectState' }">Y</div>
+						<div class="${e.isAdmin=='N'? 'selectState':'unselectState' }">N</div>
+					</td>
+					<td>
+						<div class="${e.status=='Y'? 'selectState':'unselectState' }">Y</div>
+			 			<div class="${e.status=='N'? 'selectState':'unselectState' }">N</div>
+					</td>
+					
 					</tr>
 					
 					</c:forEach>
@@ -241,18 +255,64 @@
 					error: (data) => {
 						console.log(data);
 						
-						
 					}
-					
 				});
 				
 				//값이 없을 때는 안내문구 빈칸
 			} else {
 				targetTd.innerText='';
 			}
-			
-			
 		});
+		//table에 있는 div(관리자여부, 활동중) 토글버튼 만들어서 상태 변경하기
+		//$(table).find('div'); find()는 제이쿼리 함수라 제이쿼리 형태로 바꾸고! 함수를 써야함
+		const table = document.getElementById('empList'); 
+		const stateButtons = table.querySelectorAll('div'); //jQuery의 find()와 비슷한 js함수
+		for( const button of stateButtons){ 
+			//map도 사용가능 (for of = map 인덱스만 검사. 내용물X)
+			//nodList는 배열이 아니므로 [...nodeList])처럼 배열로 만들어서 for of, map을돌림)
+			button.addEventListener('click', function() {
+				//인자에 event객체 넣던가 function으로 하던가
+				//function > this(window)사용가능
+				//empNo, 내가 선택한 컬럼명(admin/status),값(Y/N)을 전송해야함
+				//update emp set empno = ~..
+				if(this.className == 'unselectState'){
+					//1. empNo가져오기 : div에서 나가서 > td >
+					const myTd = this.parentElement;
+					//tr >그 첫번째 td
+					const myTr = myTd.parentElement;
+					const myTrChildren = myTr.children //td들의 배열이 들어가있음 
+					const empNo = myTr.children[0].innerText; //그 중에서 0번째필요
+					
+					//2. 내가 선택한 컬럼명(isAdmin/status)가져오기(for in : 요소출력 O 인덱스 출력은 for of)
+					let clickColumnIndex;
+					for(const index in myTrChildren){
+						if(myTrChildren[index] == myTd){ //Y,N부분인 index랑 tr밑의 td들의 인덱스랑 같으면 해당하는 인덱스의 숫자가 나옴(8 아님 9번째td니까 둘중 하나가 나옴)
+							clickColumnIndex = index; //내가 클릭한 index값을 이 변수에 대입
+						}
+				}
+					
+					$.ajax({ //this : event가 들어간 button을가리키는 중
+						url: '${contextPath}/updateState.me',				//컬럼명을썼기 때문에 (문자열로 값전달) 컬럼명이랑 맞게 써주기
+						data:{empNo:empNo, column:clickColumnIndex == 8? 'is_Admin':'status',value:this.innerText},
+						type: 'post',
+						success: data => {
+							if(data.trim() == 'success'){ //success + 줄바꿈들어갔으니까 trim해주기
+								this.className = 'selectState';	//이 this = div 
+								for(const siblings of myTd.children){
+									if(siblings != this){
+										siblings.className = 'unselectState';
+									}
+								}//모든div들 중 여러 td들 중 내가 고른거만 색 빼야함
+							} else {
+								alert('상태 변경을 실패하심');
+							}
+						},
+						error:data=>console.log(data)
+					
+					});
+			}
+		});
+	}
 		
 		
 		

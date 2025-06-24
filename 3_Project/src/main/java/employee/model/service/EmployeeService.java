@@ -62,6 +62,17 @@ public class EmployeeService {
 		
 		return result;
 	}
+	//버튼 눌렀을 때 isAdmin / status 상태 Y,N으로 바꾸기 기능
+	public int updateState(int id, String column, String value) {
+		Connection conn = getConnection();
+		int result = eDAO.updateState(conn, id, column, value );
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
 	
 	
 	
