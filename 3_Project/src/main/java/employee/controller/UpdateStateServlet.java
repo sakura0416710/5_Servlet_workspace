@@ -38,7 +38,7 @@ public class UpdateStateServlet extends HttpServlet {
 		
 		int result = eService.updateState(id, column, value);
 		PrintWriter out = response.getWriter();
-		out.println(result == 1 ? "success" : "fail");
+		out.println(result == 1 ? "success" : "fail");//success + 줄바꿈이 반환되는 것!
 	
 	}
 

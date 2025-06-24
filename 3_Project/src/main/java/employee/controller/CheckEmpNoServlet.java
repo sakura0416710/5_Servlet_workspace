@@ -38,7 +38,7 @@ public class CheckEmpNoServlet extends HttpServlet {
 		//값을 보낼 때 ajax비동기방식으로 보냈으므로 받을 때도 비동기로 받아야 함
 		//재요청이 아니라 응답중.
 		PrintWriter out = response.getWriter();
-		out.println(result);
+		out.println(result); //success + 줄바꿈이 반환되는 것!
 	
 		
 		
